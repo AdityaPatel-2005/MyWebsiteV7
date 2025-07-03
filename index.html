@@ -8,24 +8,21 @@
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 </head>
 <body>
-    
+
+    <!-- BACKGROUND ELEMENTS - Should be direct children of <body> -->
+    <div class="spline-background">
+        <spline-viewer url="https://prod.spline.design/UG7BcEp3HAuNbdUY/scene.splinecode"></spline-viewer>
+    </div> 
+
     <div class="watermark-cover">
     </div>
 
-<div class="spline-background">
-    <spline-viewer url="YOUR_SPLINE_URL_HERE" events-target="global"></spline-viewer>
-</div> 
-    <div class="spline-background">
-        <spline-viewer url="https://prod.spline.design/UG7BcEp3HAuNbdUY/scene.splinecode"></spline-viewer>
-
-    </div> 
-
+    <!-- PAGE CONTENT - Now siblings to the background elements -->
     <header class="header">
         <a href="#home" class="logo">Aditya.</a>
         <i class='bx bx-menu' id="menu-icon"></i>
 
         <nav class="navbar">
-            <!-- Updated links to point to section IDs -->
             <a href="#home" class="active">Home</a>
             <a href="#about">About</a>
             <a href="#journey">Journey</a>
@@ -39,9 +36,8 @@
         <div class="home-content">
             <h1>Hi, I'm Aditya Patel</h1>
             <h3>Engineering Student</h3>
-            <P>Pursuing Mechanical Engineering at<strong style="color: #a792ff;"> Symbiosis Institute of Technology,</strong> Pune, with a strong interest in practical design and innovation. Experienced in chassis, aerodynamics, and thermal systems through work with <strong style="color: #a792ff;">Wrench Wielders Racing</strong>. Skilled in CAD, simulations, and prototyping, with a focus on bridging theory with real-world application. Passionate about continuous learning and collaborative engineering.
-
-</P>
+            <P>Currently pursuing my B.Tech at <strong style= "color:#a792ff">Symbiosis Institute of Technology</strong>, Pune, I thrive at the intersection of practical design, performance engineering, and innovation. With hands-on experience in vehicle systems through Formula Student and real-world applications during my <strong style= "color:#a792ff">internship at Suzlon</strong>, I specialize in CAD, simulations, and turning concepts into functional systems. I believe in learning by building—and collaborating to solve real problems.
+            </P>
             <div class="btn-box">
                 <a href="#about">Read More</a>
             </div>
@@ -59,68 +55,61 @@
     <section class="about" id="about">
         <h2 class="heading">About <span>Me</span></h2>
         <div class="about-img">
-            <!-- Replace with your actual photo URL or a placeholder -->
             <img src="face.jpg" alt="Profile Picture">
             <span class="circle-spin"></span>
         </div>
         <div class="about-content">
             <h3>Aspiring Engineer & Designer!</h3>
             <section id="about-me">
-  <ul>
-    <li>
-      I’m <strong>Aditya Patel</strong>, a Mechanical Engineering student at <strong>Symbiosis Institute of Technology, Pune</strong> with a strong interest in engineering design and real-world problem-solving.
-    </li>
-    <li>
-      My work is driven by curiosity, precision, and a desire to create performance-focused, practical solutions that go beyond theoretical understanding.
-    </li>
-    <li>
-      I’m a core member of <strong>Wrench Wielders Racing</strong>, our Formula Student team, where I’ve contributed to:
-      <ul>
-        <li>Chassis design</li>
-        <li>Aerodynamic components</li>
-        <li>Rear Wing</li>
-        <li>Back Plate</li>
-      </ul>
-    </li>
-    <li>
-      In <strong>Summer 2025</strong>, I completed an internship at <strong>Suzlon Energy, Pune</strong>, where I:
-      <ul>
-        <li>Worked in the Cooling Department</li>
-        <li>Studied converter cooling systems used in wind turbines</li>
-        <li>Performed thermal calculations and design reviews aligned with <strong>IEC 61400-1:2019</strong> standards</li>
-        <li>Performed CFD Simulations based on Calculations</li>
-        <li>Worked on AI powered Safty protocols for HMBAT</li>
-      </ul>
-    </li>
-    <li>
-      I enjoy working on side projects that combine mechanics, electronics, and design—such as building my own <strong>wireless backlit keyboard</strong>.
-    </li>
-    <li>
-      I’m always eager to <strong>learn across disciplines</strong>, including:
-      <ul>
-        <li>Coding</li>
-        <li>Art & design</li>
-        <li>Public speaking</li>
-      </ul>
-    </li>
-    <li>
-      Outside academics, I’m passionate about:
-      <ul>
-        <li>Watching movies and anime</li>
-        <li>Reading manga and manhwa</li>
-        <li>Riding bikes</li>
-        <li>Hiking and exploring nature</li>
-      </ul>
-    </li>
-    <li>
-      I take inspiration from <strong>Porsche</strong>, whose philosophy of design excellence and performance engineering motivates me to build with clarity, intention, and innovation.
-    </li>
-  </ul>
-</section>
-
-            
-              
-            </div>
+                <ul>
+                    <li>
+                        I’m <strong>Aditya Patel</strong>, a Mechanical Engineering student at <strong>Symbiosis Institute of Technology, Pune</strong>, passionate about practical engineering and design-driven problem-solving.
+                    </li>
+                    <li>
+                        My approach blends hands-on experience, technical skills, and a drive to turn ideas into functional, efficient systems.
+                    </li>
+                    <li>
+                        As a core member of <strong>Wrench Wielders Racing</strong>, our Formula Student team, I’ve contributed to:
+                        <ul>
+                        <li>Chassis redesign for a new engine configuration</li>
+                        <li>Structural upgrades for driver safety</li>
+                        <li>Aerodynamic development including rear wing and back plate</li>
+                        </ul>
+                    </li>
+                    <li>
+                        During my <strong>Summer 2025 internship at Suzlon Energy, Pune</strong>, I gained industry-level exposure by:
+                        <ul>
+                        <li>Working in the Cooling Department</li>
+                        <li>Analyzing wind turbine converter cooling systems</li>
+                        <li>Conducting thermal design reviews per <strong>IEC 61400-1:2019</strong></li>
+                        <li>Running CFD simulations for heat management</li>
+                        <li>Supporting AI-based safety systems for HMBAT</li>
+                        </ul>
+                    </li>
+                    <li>
+                        I also work on independent projects that merge mechanical systems with electronics and CAD—such as designing a <strong>wireless backlit keyboard</strong> and a 3D-printable <strong>mini drone</strong>.
+                    </li>
+                    <li>
+                        I enjoy expanding my knowledge across diverse areas like:
+                        <ul>
+                        <li>Programming and automation</li>
+                        <li>Creative design and modeling</li>
+                        <li>Public communication and presentation</li>
+                        </ul>
+                    </li>
+                    <li>
+                        When I’m not engineering, I recharge through:
+                        <ul>
+                        <li>Movies and anime</li>
+                        <li>Manga and manhwa</li>
+                        <li>Bike rides and trail explorations</li>
+                        </ul>
+                    </li>
+                    <li>
+                        I'm inspired by <strong>Porsche’s design philosophy</strong>—balancing form, function, and performance—which I aim to reflect in every project I undertake.
+                    </li>
+                </ul>
+            </section>
         </div>
     </section>
 
@@ -174,131 +163,62 @@
         <h2 class="heading">My <span>Skills</span></h2>
         <div class="skills-row">
             <div class="skills-column">
-                
                 <div class="skills-box">
                     <div class="skills-content">
-                        <div class="progress">
-                            <h3>CAD (SolidWorks, Fusion 360) <span></span></h3>
-                            <div class="bar"><span style="width: 80%;"></span></div>
-                        </div>
-                        <div class="progress">
-                            <h3>CFD (SimScale, Ansys) <span></span></h3>
-                            <div class="bar"><span style="width: 50%;"></span></div>
-                        </div>
-                        <div class="progress">
-                            <h3>FEA (Ansys) <span></span></h3>
-                            <div class="bar"><span style="width: 75%;"></span></div>
-                        </div>
-                        <div class="progress">
-                            <h3>Python (for Engineering) <span></span></h3>
-                            <div class="bar"><span style="width: 80%;"></span></div>
-                        </div>
-                         <div class="progress">
-                            <h3>3D Printing <span></span></h3>
-                            <div class="bar"><span style="width: 70%;"></span></div>
-                        </div>
+                        <div class="progress"><h3>CAD (SolidWorks, Fusion 360) <span></span></h3><div class="bar"><span style="width: 80%;"></span></div></div>
+                        <div class="progress"><h3>CFD (SimScale, Ansys) <span></span></h3><div class="bar"><span style="width: 50%;"></span></div></div>
+                        <div class="progress"><h3>FEA (Ansys) <span></span></h3><div class="bar"><span style="width: 75%;"></span></div></div>
+                        <div class="progress"><h3>Python (for Engineering) <span></span></h3><div class="bar"><span style="width: 80%;"></span></div></div>
+                         <div class="progress"><h3>3D Printing <span></span></h3><div class="bar"><span style="width: 70%;"></span></div></div>
                     </div>
                 </div>
             </div>
             <div class="skills-column">
-               
                 <div class="skills-box">
                     <div class="skills-content">
-                        <div class="progress">
-                            <h3>Problem Solving <span></span></h3>
-                            <div class="bar"><span style="width: 75%;"></span></div>
-                        </div>
-                        <div class="progress">
-                            <h3>Adaptability & Curiosity <span></span></h3>
-                            <div class="bar"><span style="width: 80%;"></span></div>
-                        </div>                        
-                         <div class="progress">
-                            <h3>Critical Thinking <span></span></h3>
-                            <div class="bar"><span style="width: 65%;"></span></div>
-                        </div>
-                        <div class="progress">
-                            <h3>Team Collaboration <span></span></h3>
-                            <div class="bar"><span style="width: 60%;"></span></div>
-                        </div>
-                        <div class="progress">
-                            <h3>Project Management <span></span></h3>
-                            <div class="bar"><span style="width: 70%;"></span></div>
-                        </div>
+                        <div class="progress"><h3>Problem Solving <span></span></h3><div class="bar"><span style="width: 75%;"></span></div></div>
+                        <div class="progress"><h3>Adaptability & Curiosity <span></span></h3><div class="bar"><span style="width: 80%;"></span></div></div>                        
+                         <div class="progress"><h3>Critical Thinking <span></span></h3><div class="bar"><span style="width: 65%;"></span></div></div>
+                        <div class="progress"><h3>Team Collaboration <span></span></h3><div class="bar"><span style="width: 60%;"></span></div></div>
+                        <div class="progress"><h3>Project Management <span></span></h3><div class="bar"><span style="width: 70%;"></span></div></div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- CONTACT SECTION -->
+    <!-- PROJECTS SECTION -->
     <section class="projects" id="projects">
         <h2 class="heading">My <span>Projects</span></h2>
-
         <form action="#">
-          <!--PROJECTS HERE-->  
             <div class="project-card">
                 <img src="project1.gif" alt="Solar Mobile Charger">
                 <div class="project-info">
                     <h3>Solar Mobile Charger</h3>
-                    <p>Designed and built a portable solar mobile charger with a focus on durability, modularity, and solar efficiency.
-Evolved from a box to a prismatic structure for improved stability and performance.
-Used aluminum bracing, MDF panels, and zip-tie assembly to enable low-tech fabrication and easy repair.
-Achieved lightweight design under 10 kg with optimized solar orientation and thermal resistance.</p>
+                    <p>Designed and built a portable solar mobile charger with a focus on durability, modularity, and solar efficiency. Evolved from a box to a prismatic structure for improved stability and performance. Used aluminum bracing, MDF panels, and zip-tie assembly to enable low-tech fabrication and easy repair. Achieved lightweight design under 10 kg with optimized solar orientation and thermal resistance.</p>
                 </div>
             </div>
-
-
-            <!-- Project 2 -->
             <div class="project-card">
                 <img src="project2.gif" alt="Wireless Backlit Keyboard">
                 <div class="project-info">
                     <h3>Wireless Backlit Keyboard</h3>
-                    <p>Developed a custom wireless backlit keyboard with a focus on affordability, modularity, and usability.
-Designed the layout and housing for optimal ergonomics using basic tools and low-cost materials.
-Integrated backlighting and wireless functionality while maintaining a clean, portable form factor.
-Emphasized DIY assembly and repair, demonstrating creativity in blending electronics with mechanical design.</p>
+                    <p>Developed a custom wireless backlit keyboard with a focus on affordability, modularity, and usability. Designed the layout and housing for optimal ergonomics using basic tools and low-cost materials. Integrated backlighting and wireless functionality while maintaining a clean, portable form factor. Emphasized DIY assembly and repair, demonstrating creativity in blending electronics with mechanical design.</p>
                 </div>
             </div>
-
-
-            <!-- Project 3 -->
-            <div class="project-card">
-                <img src="project3.gif" alt="FSAE Chassis">
-                <div class="project-info">
-                    <h3>FSAE Chassis</h3>
-                    <p>Contributed to the Formula Student chassis redesign to integrate a new engine configuration.
-Modified the frame to ensure structural compatibility without compromising rigidity.
-Added shoulder harness bracing to enhance driver safety and meet updated design standards.
-Ensured all changes aligned with manufacturing feasibility and team performance goals.</p>
-                </div>
-            </div>
-
-
-            <!-- Project 4 -->
             <div class="project-card">
                 <img src="project4.gif" alt="Mini Drone">
                 <div class="project-info">
                     <h3>Mini Drone</h3>
-                    <p>Designed a compact, lightweight mini quadcopter with a fully 3D-printable frame.
-Focused on structural simplicity, modularity, and ease of assembly for quick prototyping.
-Optimized for small-scale flight testing with minimal material usage and efficient layout.
-Demonstrates skills in 3D modeling, aerodynamics, and integrating mechanical design with electronics.</p>
+                    <p>Designed a compact, lightweight mini quadcopter with a fully 3D-printable frame. Focused on structural simplicity, modularity, and ease of assembly for quick prototyping. Optimized for small-scale flight testing with minimal material usage and efficient layout. Demonstrates skills in 3D modeling, aerodynamics, and integrating mechanical design with electronics.</p>
                 </div>
             </div>
-            <!-- Project 5 -->
             <div class="project-card">
                 <img src="project5.gif" alt="FSAE Rear Wing">
                 <div class="project-info">
                     <h3>FSAE Rear Wing</h3>
-                    <p>Designed a rear wing for the Formula Student car with a focus on aerodynamic efficiency and structural integrity.
-Optimized airfoil profiles and endplate geometry to maximize downforce while minimizing drag.
-Integrated mounting points into the chassis design to ensure stability under high-speed conditions.
-Balanced performance, manufacturability, and weight to align with overall vehicle dynamics goals.</p>
+                    <p>Designed a rear wing for the Formula Student car with a focus on aerodynamic efficiency and structural integrity. Optimized airfoil profiles and endplate geometry to maximize downforce while minimizing drag. Integrated mounting points into the chassis design to ensure stability under high-speed conditions. Balanced performance, manufacturability, and weight to align with overall vehicle dynamics goals.</p>
                 </div>
             </div>
-
-           
-
         </form>
     </section>
 
@@ -352,6 +272,77 @@ Balanced performance, manufacturability, and weight to align with overall vehicl
         };
     </script>
 
-<script type="module" src="https://unpkg.com/@splinetool/viewer@1.3.1/build/spline-viewer.js"></script>
+    <!-- NEW SCRIPT FOR PERFORMANCE DETECTION -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // --- Configuration ---
+            const FPS_THRESHOLD = 30;
+            const CHECK_INTERVAL_MS = 1000;
+            const CONSECUTIVE_LOW_FRAMES_TRIGGER = 5;
+            const INITIAL_DELAY_MS = 5000;
+
+            // --- State Variables ---
+            let frameCount = 0;
+            let lastCheckTime = performance.now();
+            let lowFrameCheckCount = 0;
+            let fallbackActive = false;
+            let monitorIntervalId;
+
+            // This function runs on every frame
+            const fpsLoop = () => {
+                if (fallbackActive) return;
+                frameCount++;
+                requestAnimationFrame(fpsLoop);
+            };
+
+            // This function is called to switch to the image background
+            const switchToImageBackground = () => {
+                if (fallbackActive) return;
+                
+                console.log(`Performance issue detected. Switching to static background.`);
+                fallbackActive = true;
+                document.body.classList.add('fallback-active');
+
+                clearInterval(monitorIntervalId);
+                
+                const splineViewer = document.querySelector('spline-viewer');
+                if (splineViewer) {
+                    splineViewer.remove();
+                }
+            };
+
+            // This function checks the average FPS periodically
+            const monitorPerformance = () => {
+                const now = performance.now();
+                const timeDiff = now - lastCheckTime;
+                const fps = (frameCount * 1000) / timeDiff;
+
+                console.log(`Current Average FPS: ${fps.toFixed(1)}`);
+
+                if (fps < FPS_THRESHOLD) {
+                    lowFrameCheckCount++;
+                } else {
+                    lowFrameCheckCount = 0;
+                }
+
+                if (lowFrameCheckCount >= CONSECUTIVE_LOW_FRAMES_TRIGGER) {
+                    switchToImageBackground();
+                }
+
+                frameCount = 0;
+                lastCheckTime = now;
+            };
+            
+            // Start the Process
+            setTimeout(() => {
+                console.log('Starting performance monitoring...');
+                requestAnimationFrame(fpsLoop);
+                monitorIntervalId = setInterval(monitorPerformance, CHECK_INTERVAL_MS);
+            }, INITIAL_DELAY_MS);
+        });
+    </script>
+
+    <!-- Spline Viewer Script (Only one is needed) -->
+    <script type="module" src="https://unpkg.com/@splinetool/viewer@1.3.1/build/spline-viewer.js"></script>
 </body>
 </html>
