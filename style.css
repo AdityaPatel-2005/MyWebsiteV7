@@ -669,7 +669,7 @@ body.fallback-active .watermark-cover {
 /* 2. Apply the static image background to the body */
 body.fallback-active {
     /* Make sure to use your actual image path! */
-    background-image: url('fallback-background.png'); 
+    background-image: url('fallback-background.jpg'); 
     background-color: #000; /* A solid color in case the image fails to load */
     background-size: cover; /* Cover the entire viewport */
     background-position: center center; /* Center the image */
