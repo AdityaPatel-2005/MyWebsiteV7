@@ -12,8 +12,8 @@
 }
 
 :root {
-    --bg-color: #141020;
-    --second-bg-color: #141020;
+    --bg-color: black;
+    --second-bg-color: black;
     --text-color: #ededed;
     --main-color: #a792ff;
 }
@@ -54,7 +54,7 @@ body {
     right: 0;
     width: 100%; /* Adjust width to ensure it covers the whole watermark */
     height: 70px; /* Adjust height as needed */
-    background-color: var(--second-bg-color); /* Blends with your footer/background */
+    background-color: black; /* Blends with your footer/background */
     z-index: 0; /* Placed between Spline (-2) and your content (1) */
 }
 
@@ -175,11 +175,19 @@ section {
     border-radius: .6rem;
     box-shadow: 0 0 1rem var(--main-color);
     font-size: 1.6rem;
-    color: var(--text-color);
+
     letter-spacing: .1rem;
     font-weight: 600;
     transition: .5s ease;
 }
+.btn-box a,
+.btn-box a:visited,
+.btn-box a:hover,
+.btn-box a:active {
+    color: (--main-color); /* or any color you prefer */
+    text-decoration: none;
+}
+
 
 .btn:hover {
     box-shadow: none;
@@ -486,7 +494,7 @@ section {
     border-radius: 50px;
     backdrop-filter: blur(8px); /* Increased blur for consistency */
     border: .2rem solid rgba(255, 255, 255, 0.1);
-    background-color:rgba(255, 255, 255, 0.15);
+    background-color:rgba(255, 255, 255, 0.1);
 }
 
 .project-card img {
@@ -609,6 +617,7 @@ section {
     }
     .home {
         background-position: center;
+        background-image: url(image.png);
         flex-direction: column;
         justify-content: center;
         text-align: center;
@@ -645,3 +654,29 @@ section {
         font-size: 50%;
     }
 }
+
+/* ADD THIS TO THE END OF YOUR style.css FILE */
+
+/* --- Fallback State for Low Performance --- */
+
+/* 1. Hide the Spline background and watermark cover when fallback is active */
+body.fallback-active .spline-background,
+body.fallback-active .watermark-cover {
+    display: none;
+    visibility: hidden;
+}
+
+/* 2. Apply the static image background to the body */
+body.fallback-active {
+    /* Make sure to use your actual image path! */
+    background-image: url('fallback-background.png'); 
+    background-color: #000; /* A solid color in case the image fails to load */
+    background-size: cover; /* Cover the entire viewport */
+    background-position: center center; /* Center the image */
+    background-repeat: no-repeat; /* Do not repeat the image */
+    background-attachment: fixed; /* Keep the background fixed during scroll */
+}
+
+/* 3. Ensure your content remains readable over the new background */
+/* Since your text is already light, this might not be needed, but it's good practice. */
+/* The blur effects you have on content cards will still work and might look even better on a static image. */
