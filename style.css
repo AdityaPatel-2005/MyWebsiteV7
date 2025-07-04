@@ -12,8 +12,8 @@
 }
 
 :root {
-    --bg-color: black;
-    --second-bg-color: black;
+    --bg-color: transparent; /* Changed to transparent for canvas background */
+    --second-bg-color: rgba(0, 0, 0, 0.8); /* Slightly opaque for header/footer */
     --text-color: #ededed;
     --main-color: #a792ff;
 }
@@ -25,45 +25,49 @@ html {
 
 body {
     position: relative;
-    background: transparent;
+    background: transparent; /* Ensure body itself is transparent to see canvas */
     color: var(--text-color);
+    overflow-x: hidden; /* Prevent horizontal scrollbars */
+    overflow-y: auto; /* Allow vertical scrolling for content */
 }
 
-/* --- Spline Background Styling --- */
-.spline-background {
-    position: fixed;
+/* --- Canvas Background Styling --- */
+#canvas {
+    position: fixed; /* Fix the canvas to the viewport */
     top: 0;
     left: 0;
-    width: 100vw;
-    height: 100vh;
-    z-index: -2;
-    overflow: hidden;
+    width: 100vw; /* Make it cover the full viewport width */
+    height: 100vh; /* Make it cover the full viewport height */
+    z-index: -1; /* Place it behind all other content */
+    background-color: #000; /* Fallback background for canvas before animation loads */
 }
 
-.spline-background spline-viewer {
-    width: 100%;
-    height: 100%;
-    pointer-events: none; /* Allows mouse events to pass through to content */
-}
+/* REMOVED: Spline Background Styling and .spline-background spline-viewer */
+/* REMOVED: .spline-background */
 
 /* --- Watermark Cover Box --- */
-/* This box covers the Spline watermark at the bottom right */
+/* This box covers the Spline watermark at the bottom right.
+   Since Spline is removed, you might not need this. If you want a similar
+   effect or a dark area at the bottom, keep and adjust z-index if necessary. */
 .watermark-cover {
     position: fixed; /* Stays in place as the user scrolls */
     bottom: 0;
     right: 0;
     width: 100%; /* Adjust width to ensure it covers the whole watermark */
     height: 70px; /* Adjust height as needed */
-    background-color: black; /* Blends with your footer/background */
-    z-index: 0; /* Placed between Spline (-2) and your content (1) */
+    background-color: transparent; /* Set to transparent or remove if no longer needed to cover anything */
+    z-index: -1; /* Place it behind content, same as canvas or remove if not needed */
+    pointer-events: none; /* Allows mouse events to pass through */
 }
 
-/* --- Bring content above spline viewer --- */
+
+/* --- Bring content above canvas viewer --- */
+/* Ensure all main content sections are above the canvas */
 header,
 section,
 footer {
-    position: relative;
-    z-index: 1;
+    position: relative; /* Essential for z-index to work */
+    z-index: 1; /* Place content above the canvas (z-index: -1) */
 }
 
 /* --- Universal Section and Heading Styles --- */
@@ -89,7 +93,7 @@ section {
     left: 0;
     width: 100%;
     padding: 2rem 9%;
-    background: var(--bg-color);
+    background: var(--second-bg-color); /* Use --second-bg-color for header background */
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -98,7 +102,7 @@ section {
 }
 
 .header.sticky {
-    background: var(--second-bg-color);
+    background: var(--second-bg-color); /* Stays consistent with header background */
     box-shadow: 0 .1rem 1rem rgba(0,0,0, .2);
 }
 
@@ -133,17 +137,12 @@ section {
     display: flex;
     align-items: center;
     padding: 0 9%;
-    background-size: contain;
+    /* background-size: contain; - Removed as background is now canvas */
 }
 
 .home-content {
     max-width: 60rem;
-    
-}
-
-.home-content::before {
-    max-width: 60rem;
-    
+    /* Removed ::before as it had no content or style */
 }
 
 .home-content h1 {
@@ -162,10 +161,11 @@ section {
 .home-content p {
     font-size: 1.6rem;
     margin: 2rem 0 4rem;
-    backdrop-filter: blur(2px); /* Applied directly here */
-    background-color: rgba(0, 0, 0, 0.1); /* Semi-transparent background for blur effect */
-    padding: 1rem;
-    border-radius: 0.5rem;
+    backdrop-filter: blur(8px); /* Increased blur for consistency and visibility */
+    background-color: rgba(0, 0, 0, 0.2); /* Slightly more opaque for better readability */
+    padding: 1.5rem; /* Increased padding */
+    border-radius: 0.8rem; /* Slightly larger border-radius */
+    border: .2rem solid rgba(255, 255, 255, 0.1); /* Added subtle border */
 }
 
 .btn-box {
@@ -175,21 +175,25 @@ section {
     border-radius: .6rem;
     box-shadow: 0 0 1rem var(--main-color);
     font-size: 1.6rem;
-
     letter-spacing: .1rem;
     font-weight: 600;
     transition: .5s ease;
 }
-.btn-box a,
-.btn-box a:visited,
-.btn-box a:hover,
-.btn-box a:active {
-    color: (--main-color); /* or any color you prefer */
+
+/* Fix for button text color */
+.btn-box a {
+    color: var(--second-bg-color); /* Set button text color to a dark color to contrast with --main-color */
     text-decoration: none;
 }
 
+.btn-box a:visited,
+.btn-box a:hover,
+.btn-box a:active {
+    color: var(--second-bg-color); /* Ensure text color remains dark on hover/active */
+}
 
-.btn:hover {
+
+.btn:hover { /* This .btn class is not used, might be a leftover */
     box-shadow: none;
 }
 
@@ -219,7 +223,7 @@ section {
 
 .home-sci a:hover {
     background: var(--main-color);
-    color: var(--bg-color);
+    color: var(--bg-color); /* Should now be transparent or fallback to other color */
     box-shadow: 0 0 1rem var(--main-color);
 }
 
@@ -257,8 +261,9 @@ section {
     width: 100%;
     height: 100%;
     border-radius: 50%;
-    border-top: .2rem solid black;
-    border-bottom: .2rem solid black;
+    /* Changed black to transparent or a subtle color for the spinner */
+    border-top: .2rem solid transparent;
+    border-bottom: .2rem solid transparent;
     border-left: .2rem solid var(--main-color);
     border-right: .2rem solid var(--main-color);
     animation: aboutSpinner 8s linear infinite;
@@ -276,10 +281,11 @@ section {
 .about-content p {
     font-size: 1.6rem;
     margin: 2rem 0 3rem;
-    background-color: rgba(0, 0, 0, 0.1); /* Semi-transparent background for blur effect */
+    background-color: rgba(0, 0, 0, 0.2); /* Slightly more opaque for better readability */
     padding: 1.5rem;
-    border-radius: 0.6rem;
-    backdrop-filter: blur(4px); /* Applied directly here */
+    border-radius: 0.8rem;
+    backdrop-filter: blur(8px); /* Consistent blur value */
+    border: .2rem solid rgba(255, 255, 255, 0.1); /* Added subtle border */
 }
 
 /* --- About Content UL with Custom SVG Bullets (Main List) --- */
@@ -292,7 +298,7 @@ section {
     border: .2rem solid rgba(255, 255, 255, 0.1);
     border-radius: 16px;
     margin-bottom: 2rem;
-    backdrop-filter: blur(8px); /* Increased blur value */
+    backdrop-filter: blur(8px); /* Consistent blur value */
     list-style: none; /* Remove default bullets */
     padding-left: 0; /* Remove default padding from ul */
 }
@@ -311,12 +317,11 @@ section {
     content: ''; /* Use background-image, so content is empty */
     position: absolute;
     left: 0;
-     /* Revert to 50% for standard centering point */
-    /* *** KEY CHANGE FOR ALIGNMENT *** */
-    transform: translateY(calc(5%)); /* Centered, then push down 3px */
+    top: 50%; /* Revert to 50% for standard centering point */
+    transform: translateY(-50%); /* Centered vertically */
     width: 24px; /* Size of the main list SVG bullet */
     height: 24px;
-    /* Updated SVG Data URI with #ff8c75 directly embedded */
+    /* Using a fixed color directly in SVG or ensuring var(--main-color) is interpolated correctly */
     background-image: url('data:image/svg+xml,%3Csvg%20width%3D%22100%25%22%20height%3D%22100%25%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%20%3Cpath%20d%3D%22M5%2012H19M19%2012L12%205M19%2012L12%2019%22%20stroke%3D%22%23a792ff%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%20fill%3D%22%23a792ff%22%2F%3E%0A%3C%2Fsvg%3E');
     background-size: contain;
     background-repeat: no-repeat;
@@ -337,9 +342,8 @@ section {
     width: 18px; /* Make the sublist SVG bullet smaller */
     height: 18px;
     top: 50%; /* Revert to 50% for standard centering point */
-    /* *** KEY CHANGE FOR ALIGNMENT *** */
-    transform: translateY(calc(-50%)); /* Centered, then push down 2px */
-    /* Updated SVG Data URI with #ededed directly embedded */
+    transform: translateY(-50%); /* Centered vertically */
+    /* Using a fixed color directly in SVG or ensuring var(--text-color) is interpolated correctly */
     background-image: url('data:image/svg+xml,%3Csvg%20width%3D%22100%25%22%20height%3D%22100%25%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%20%3Cpath%20d%3D%22M5%2012H19M19%2012L12%205M19%2012L12%2019%22%20stroke%3D%22%23ededed%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%20fill%3D%22%23ededed%22%2F%3E%0A%3C%2Fsvg%3E');
     background-size: contain;
     background-repeat: no-repeat;
@@ -355,7 +359,6 @@ section {
     flex-direction: column;
     min-height: auto;
     padding-bottom: 5rem;
-    /* Removed backdrop-filter from here as individual content boxes will have it */
 }
 
 .journey-row {
@@ -402,8 +405,8 @@ section {
     border-radius: 16px;
     margin-bottom: 2rem;
     z-index: 1; /* Ensure content is above the blur effect */
-    background-color: rgba(255, 255, 255, 0.05); /* Semi-transparent background for blur */
-    backdrop-filter: blur(8px); /* Applied directly here for stronger blur */
+    background-color: rgba(0, 0, 0, 0.2); /* Slightly more opaque for better readability */
+    backdrop-filter: blur(8px); /* Consistent blur value */
 }
 
 .journey-content .content .year {
@@ -429,9 +432,6 @@ section {
 .skills {
     min-height: auto;
     padding-bottom: 7rem;
-    /* Added a subtle background and light blur for the entire section */
- /* Your --bg-color with transparency */
-
 }
 
 .skills-row {
@@ -454,8 +454,8 @@ section {
     border: .2rem solid rgba(255, 255, 255, 0.1);
     border-radius: 16px;
     padding: .5rem 1.5rem;
-    background-color: rgba(255, 255, 255, 0.05); /* Semi-transparent background for blur */
-    backdrop-filter: blur(8px); /* Applied directly here for stronger blur */
+    background-color: rgba(0, 0, 0, 0.2); /* Slightly more opaque for better readability */
+    backdrop-filter: blur(8px); /* Consistent blur value */
 }
 
 .skills-content .progress {
@@ -483,7 +483,11 @@ section {
     background: var(--main-color);
 }
 
-/* --- Contact Section --- */
+/* --- Projects Section --- */
+.projects {
+    padding-bottom: 7rem; /* Added padding for consistency */
+}
+
 .project-card {
     display: flex;
     flex-direction: row;
@@ -494,7 +498,7 @@ section {
     border-radius: 50px;
     backdrop-filter: blur(8px); /* Increased blur for consistency */
     border: .2rem solid rgba(255, 255, 255, 0.1);
-    background-color:rgba(255, 255, 255, 0.1);
+    background-color:rgba(0, 0, 0, 0.2); /* Slightly more opaque for better readability */
 }
 
 .project-card img {
@@ -538,7 +542,7 @@ section {
     align-items: center;
     flex-wrap: wrap;
     padding: 2rem 9%;
-    background: var(--second-bg-color);
+    background: var(--second-bg-color); /* Use --second-bg-color for footer background */
 }
 
 .footer-text p {
@@ -557,7 +561,7 @@ section {
 }
 .footer-iconTop a i {
     font-size: 2.4rem;
-    color: var(--bg-color);
+    color: var(--second-bg-color); /* Changed to second-bg-color for contrast with main-color */
 }
 
 /* Keyframes */
@@ -568,7 +572,7 @@ section {
 }
 
 /* ============================================= */
-/* RESPONSIVE (MOBILE) STYLES           */
+/* RESPONSIVE (MOBILE) STYLES                    */
 /* ============================================= */
 @media (max-width: 1200px) {
     html {
@@ -591,7 +595,7 @@ section {
 }
 @media (max-width: 768px) {
     .header {
-        background: var(--bg-color);
+        background: var(--second-bg-color); /* Ensure header remains consistent on mobile */
     }
     #menu-icon {
         display: block;
@@ -616,8 +620,7 @@ section {
         text-align: center;
     }
     .home {
-        background-position: center;
-        background-image: url(image.png);
+        /* background-image: url(image.png); - Removed as background is now canvas */
         flex-direction: column;
         justify-content: center;
         text-align: center;
@@ -634,7 +637,6 @@ section {
         width: 100%;
         justify-content: center;
         gap: 2rem;
-        
     }
     .btn-box {
         width: 40%;
@@ -644,9 +646,7 @@ section {
     .about {
         flex-direction: column;
     }
-    .contact form .input-box input {
-        width: 100%;
-    }
+    /* Removed .contact form .input-box input as there's no contact section in provided HTML */
 }
 
 @media (max-width: 450px) {
@@ -655,28 +655,20 @@ section {
     }
 }
 
-/* ADD THIS TO THE END OF YOUR style.css FILE */
-
-/* --- Fallback State for Low Performance --- */
-
-/* 1. Hide the Spline background and watermark cover when fallback is active */
-body.fallback-active .spline-background,
-body.fallback-active .watermark-cover {
-    display: none;
+/* --- Fallback State for Low Performance (Optional - needs JS to apply 'fallback-active' class) --- */
+/* This allows you to have a static image background if the canvas animation
+   causes performance issues on some devices. You would need to add JavaScript
+   to detect low FPS and add the 'fallback-active' class to the <body>. */
+body.fallback-active #canvas {
+    display: none; /* Hide the canvas when fallback is active */
     visibility: hidden;
 }
 
-/* 2. Apply the static image background to the body */
 body.fallback-active {
-    /* Make sure to use your actual image path! */
-    background-image: url('fallback-background.jpg'); 
+    background-image: url('fallback-background.png'); /* **IMPORTANT: Replace with your actual image path!** */
     background-color: #000; /* A solid color in case the image fails to load */
     background-size: cover; /* Cover the entire viewport */
     background-position: center center; /* Center the image */
     background-repeat: no-repeat; /* Do not repeat the image */
     background-attachment: fixed; /* Keep the background fixed during scroll */
 }
-
-/* 3. Ensure your content remains readable over the new background */
-/* Since your text is already light, this might not be needed, but it's good practice. */
-/* The blur effects you have on content cards will still work and might look even better on a static image. */
