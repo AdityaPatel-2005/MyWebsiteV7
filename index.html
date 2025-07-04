@@ -6,18 +6,56 @@
     <title>Aditya Patel | Portfolio</title>
     <link rel="stylesheet" href="style.css">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <style>
+        /* Add this CSS to your style.css file or directly in a <style> tag in the head */
+        body {
+            margin: 0;
+            overflow: hidden; /* Hide scrollbars if content doesn't need them */
+        }
+
+        #canvas {
+            position: fixed; /* Fix the canvas to the viewport */
+            top: 0;
+            left: 0;
+            width: 100vw; /* Make it cover the full viewport width */
+            height: 100vh; /* Make it cover the full viewport height */
+            z-index: -1; /* Place it behind other content */
+            background-color: #000; /* Optional: Set a background color for the canvas itself */
+        }
+
+        /* Ensure your content is positioned correctly above the canvas */
+        .header, .home, .about, .journey, .skills, .projects, .footer {
+            position: relative; /* Ensure these elements stack above the canvas */
+            z-index: 0; /* Or any value greater than -1 */
+        }
+        
+        /* If you had a background-image for fallback, define it here */
+        body.fallback-active {
+            background-image: url('your-fallback-image.jpg'); /* Replace with your image path */
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        /* Ensure .watermark-cover is above the canvas but below content */
+        .watermark-cover {
+            position: fixed; /* Or absolute, depending on its parent */
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1; /* Place it behind content but potentially above canvas if needed, or simply remove if not used with canvas */
+            /* If this was meant to cover the spline viewer, you might not need it anymore, or adjust its z-index */
+        }
+    </style>
 </head>
 <body>
 
-    <!-- BACKGROUND ELEMENTS - Should be direct children of <body> -->
-    <div class="spline-background">
-        <spline-viewer url="https://prod.spline.design/UG7BcEp3HAuNbdUY/scene.splinecode"></spline-viewer>
-    </div> 
+    <canvas id="canvas"></canvas>
 
     <div class="watermark-cover">
     </div>
 
-    <!-- PAGE CONTENT - Now siblings to the background elements -->
     <header class="header">
         <a href="#home" class="logo">Aditya.</a>
         <i class='bx bx-menu' id="menu-icon"></i>
@@ -31,7 +69,6 @@
         </nav>
     </header>
 
-    <!-- HOME SECTION -->
     <section class="home" id="home">
         <div class="home-content">
             <h1>Hi, I'm Aditya Patel</h1>
@@ -51,7 +88,6 @@
         </div>
     </section>
 
-    <!-- ABOUT SECTION -->
     <section class="about" id="about">
         <h2 class="heading">About <span>Me</span></h2>
         <div class="about-img">
@@ -113,7 +149,6 @@
         </div>
     </section>
 
-    <!-- JOURNEY SECTION -->
     <section class="journey" id="journey">
         <h2 class="heading">My <span>Journey</span></h2>
         <div class="journey-row">
@@ -158,7 +193,6 @@
         </div>
     </section>
 
-    <!-- SKILLS SECTION -->
     <section class="skills" id="skills">
         <h2 class="heading">My <span>Skills</span></h2>
         <div class="skills-row">
@@ -177,7 +211,7 @@
                 <div class="skills-box">
                     <div class="skills-content">
                         <div class="progress"><h3>Problem Solving <span></span></h3><div class="bar"><span style="width: 75%;"></span></div></div>
-                        <div class="progress"><h3>Adaptability & Curiosity <span></span></h3><div class="bar"><span style="width: 80%;"></span></div></div>                        
+                        <div class="progress"><h3>Adaptability & Curiosity <span></span></h3><div class="bar"><span style="width: 80%;"></span></div></div>
                          <div class="progress"><h3>Critical Thinking <span></span></h3><div class="bar"><span style="width: 65%;"></span></div></div>
                         <div class="progress"><h3>Team Collaboration <span></span></h3><div class="bar"><span style="width: 60%;"></span></div></div>
                         <div class="progress"><h3>Project Management <span></span></h3><div class="bar"><span style="width: 70%;"></span></div></div>
@@ -187,7 +221,6 @@
         </div>
     </section>
 
-    <!-- PROJECTS SECTION -->
     <section class="projects" id="projects">
         <h2 class="heading">My <span>Projects</span></h2>
         <form action="#">
@@ -222,7 +255,6 @@
         </form>
     </section>
 
-    <!-- FOOTER DESIGN -->
     <footer class="footer">
         <div class="footer-text">
             <p>Copyright © 2024 by Aditya Patel | All Rights Reserved.</p>
@@ -232,7 +264,6 @@
         </div>
     </footer>
 
-    <!-- SCRIPT FOR NAVIGATION AND SCROLLING -->
     <script>
         // --- Mobile Menu Toggle ---
         let menuIcon = document.querySelector('#menu-icon');
@@ -272,77 +303,127 @@
         };
     </script>
 
-    <!-- NEW SCRIPT FOR PERFORMANCE DETECTION -->
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            // --- Configuration ---
-            const FPS_THRESHOLD = 30;
-            const CHECK_INTERVAL_MS = 1000;
-            const CONSECUTIVE_LOW_FRAMES_TRIGGER = 5;
-            const INITIAL_DELAY_MS = 5000;
+        const canvas = document.querySelector("#canvas");
+        const ctx = canvas.getContext("2d");
 
-            // --- State Variables ---
-            let frameCount = 0;
-            let lastCheckTime = performance.now();
-            let lowFrameCheckCount = 0;
-            let fallbackActive = false;
-            let monitorIntervalId;
+        let w, h, particles;
+        let particleDistance = 70;
+        let mouse = {
+            x: undefined,
+            y: undefined,
+            radius: 70
+        }
 
-            // This function runs on every frame
-            const fpsLoop = () => {
-                if (fallbackActive) return;
-                frameCount++;
-                requestAnimationFrame(fpsLoop);
-            };
+        function init() {
+            resizeReset();
+            animationLoop();
+        }
 
-            // This function is called to switch to the image background
-            const switchToImageBackground = () => {
-                if (fallbackActive) return;
-                
-                console.log(`Performance issue detected. Switching to static background.`);
-                fallbackActive = true;
-                document.body.classList.add('fallback-active');
+        function resizeReset() {
+            w = canvas.width = window.innerWidth;
+            h = canvas.height = window.innerHeight;
 
-                clearInterval(monitorIntervalId);
-                
-                const splineViewer = document.querySelector('spline-viewer');
-                if (splineViewer) {
-                    splineViewer.remove();
+            particles = [];
+            for (let y = (((h - particleDistance) % particleDistance) + particleDistance) / 2; y < h; y += particleDistance) {
+                for (let x = (((w - particleDistance) % particleDistance) + particleDistance) / 2; x < w; x += particleDistance) {
+                    particles.push(new Particle(x, y));
                 }
-            };
+            }
+        }
 
-            // This function checks the average FPS periodically
-            const monitorPerformance = () => {
-                const now = performance.now();
-                const timeDiff = now - lastCheckTime;
-                const fps = (frameCount * 1000) / timeDiff;
+        function animationLoop() {
+            ctx.clearRect(0, 0, w, h);
+            drawScene();
+            requestAnimationFrame(animationLoop);
+        }
 
-                console.log(`Current Average FPS: ${fps.toFixed(1)}`);
+        function drawScene() {
+            for (let i = 0; i < particles.length; i++) {
+                particles[i].update();
+                particles[i].draw();
+            }
+            drawLine();
+        }
 
-                if (fps < FPS_THRESHOLD) {
-                    lowFrameCheckCount++;
+        function drawLine() {
+            for (let a = 0; a < particles.length; a++) {
+                for (let b = a; b < particles.length; b++) {
+                    let dx = particles[a].x - particles[b].x;
+                    let dy = particles[a].y - particles[b].y;
+                    let distance = Math.sqrt(dx * dx + dy * dy);
+
+                    if (distance < particleDistance * 1) {
+                        opacity = 1.5 - (distance / (particleDistance * 1));
+                        ctx.strokeStyle = "rgba(255,255,255," + opacity + ")";
+                        ctx.lineWidth = 2;
+                        ctx.beginPath();
+                        ctx.moveTo(particles[a].x, particles[a].y);
+                        ctx.lineTo(particles[b].x, particles[b].y);
+                        ctx.stroke();
+                    }
+                }
+            }
+        }
+
+        function mousemove(e) {
+            mouse.x = e.x;
+            mouse.y = e.y;
+        }
+
+        function mouseout() {
+            mouse.x = undefined;
+            mouse.y = undefined;
+        }
+
+        class Particle {
+            constructor(x, y) {
+                this.x = x;
+                this.y = y;
+                this.size = 4;
+                this.baseX = this.x;
+                this.baseY = this.y;
+                this.speed = (Math.random() * 25) + 5;
+            }
+            draw() {
+                ctx.fillStyle = "rgba(167,146,255,.4)";
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.closePath();
+                ctx.fill();
+            }
+            update() {
+                let dx = mouse.x - this.x;
+                let dy = mouse.y - this.y;
+                let distance = Math.sqrt(dx * dx + dy * dy);
+                let maxDistance = mouse.radius;
+                let force = (maxDistance - distance) / maxDistance; // 0 ~ 1
+                let forceDirectionX = dx / distance;
+                let forceDirectionY = dy / distance;
+                let directionX = forceDirectionX * force * this.speed;
+                let directionY = forceDirectionY * force * this.speed;
+
+                if (distance < mouse.radius) {
+                    this.x -= directionX;
+                    this.y -= directionY;
                 } else {
-                    lowFrameCheckCount = 0;
+                    if (this.x !== this.baseX) {
+                        let dx = this.x - this.baseX;
+                        this.x -= dx / 10;
+                    }
+                    if (this.y !== this.baseY) {
+                        let dy = this.y - this.baseY;
+                        this.y -= dy / 10;
+                    }
                 }
+            }
+        }
 
-                if (lowFrameCheckCount >= CONSECUTIVE_LOW_FRAMES_TRIGGER) {
-                    switchToImageBackground();
-                }
-
-                frameCount = 0;
-                lastCheckTime = now;
-            };
-            
-            // Start the Process
-            setTimeout(() => {
-                console.log('Starting performance monitoring...');
-                requestAnimationFrame(fpsLoop);
-                monitorIntervalId = setInterval(monitorPerformance, CHECK_INTERVAL_MS);
-            }, INITIAL_DELAY_MS);
-        });
+        init();
+        window.addEventListener("resize", resizeReset);
+        window.addEventListener("mousemove", mousemove);
+        window.addEventListener("mouseout", mouseout);
     </script>
 
-    <!-- Spline Viewer Script (Only one is needed) -->
-    <script type="module" src="https://unpkg.com/@splinetool/viewer@1.3.1/build/spline-viewer.js"></script>
-</body>
+    </body>
 </html>
